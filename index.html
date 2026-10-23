@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a bento grid of tiles, filtered by a pill tab bar; non-matching tiles recede rather than reflow */
+/* Layout: a bento grid of tiles, filtered by a pill tab bar; matching tiles move to the top and the rest recede */
 :root{
   --bg:#e9edf3; --tile:#ffffff; --ink:#141a24; --muted:#5d6878; --line:#d6dce6;
   --accent:#2747d9; --accent-soft:#e3e8fc; --ok:#1f9d63;
@@ -103,6 +103,7 @@ a{color:inherit}
 @media (max-width:600px){.mh ul{grid-template-columns:minmax(0,1fr)}}
 .gh{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
 .gh:hover{border-color:var(--accent);color:var(--accent)}
+.links{display:flex;gap:8px;flex-wrap:wrap}
 .platforms{display:flex;gap:8px;flex-wrap:wrap}
 .platforms span{font-family:var(--mono);font-size:12px;padding:6px 10px;border-radius:10px;background:var(--bg)}
 
@@ -210,6 +211,7 @@ footer{text-align:center;font-size:13px;color:var(--muted)}
         <li>QR check-in that assigned color-coded meal waves, with zero overcrowding at any meal</li>
       </ul>
       <div class="chips push"><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Three.js</span><span class="chip">Tailwind</span><span class="chip">shadcn</span><span class="chip">Clerk</span></div>
+      <a class="gh" href="https://www.muslimhacks.ca/" target="_blank" rel="noopener">Visit site ↗</a>
     </section>
 
     <!-- Order On Spot -->
@@ -260,7 +262,10 @@ footer{text-align:center;font-size:13px;color:var(--muted)}
         <li>pytest, build and lint on every PR in GitHub Actions; deploys to Render and Vercel</li>
       </ul>
       <div class="chips push"><span class="chip">FastAPI</span><span class="chip">Python</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">Tailwind</span></div>
-      <a class="gh" href="https://github.com/ShahzoabShafi/Freshinternjobsearch" target="_blank" rel="noopener">View on GitHub ↗</a>
+      <div class="links">
+        <a class="gh" href="https://freshinternjobsearch.vercel.app" target="_blank" rel="noopener">Live site ↗</a>
+        <a class="gh" href="https://github.com/ShahzoabShafi/Freshinternjobsearch" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
     </section>
 
     <!-- McBooking -->
@@ -330,20 +335,30 @@ footer{text-align:center;font-size:13px;color:var(--muted)}
 <script>
 (function(){
   const tabs=[...document.querySelectorAll('.tabs button')];
+  const grid=document.getElementById('grid');
   const tiles=[...document.querySelectorAll('.t')];
+  const calm=matchMedia('(prefers-reduced-motion: reduce)');
   function apply(f){
     tabs.forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.f===f)));
+    const match=t=>f==='all' || (t.dataset.cat||'').split(' ').includes(f);
+    // Matching tiles move to the top in their original order; "All" restores the original layout
+    const order=[...tiles.filter(match), ...tiles.filter(t=>!match(t))];
+    const before=new Map(tiles.map(t=>[t,t.getBoundingClientRect()]));
+    order.forEach(t=>grid.appendChild(t));
     tiles.forEach(t=>{
-      const on = f==='all' || (t.dataset.cat||'').split(' ').includes(f);
+      const on=match(t);
       t.classList.toggle('dim', !on);
-      t.setAttribute('aria-hidden', String(!on));
+      if(on) t.removeAttribute('aria-hidden'); else t.setAttribute('aria-hidden','true');
+      if(calm.matches || !t.animate) return;
+      const a=before.get(t), b=t.getBoundingClientRect();
+      const dx=a.left-b.left, dy=a.top-b.top;
+      if(dx||dy) t.animate([{translate:`${dx}px ${dy}px`},{translate:'0 0'}],{duration:450,easing:'cubic-bezier(.2,.7,.2,1)'});
     });
   }
   tabs.forEach(b=>b.addEventListener('click',()=>apply(b.dataset.f)));
   document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{
     apply(b.dataset.go);
-    const first=tiles.find(t=>t.dataset.cat.split(' ').includes(b.dataset.go));
-    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+    grid.scrollIntoView({behavior:'smooth',block:'start'});
   }));
   document.getElementById('jump-contact').addEventListener('click',()=>{
     apply('all'); document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'center'});
