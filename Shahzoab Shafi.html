@@ -1,0 +1,361 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Shahzoab Shafi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a bento grid of tiles, filtered by a pill tab bar; non-matching tiles recede rather than reflow */
+:root{
+  --bg:#e9edf3; --tile:#ffffff; --ink:#141a24; --muted:#5d6878; --line:#d6dce6;
+  --accent:#2747d9; --accent-soft:#e3e8fc; --ok:#1f9d63;
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  --r:28px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1118; --tile:#171d28; --ink:#eef1f6; --muted:#97a2b4; --line:#273041;
+  --accent:#7d94ff; --accent-soft:#1f2848; --ok:#3ccf8a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1118; --tile:#171d28; --ink:#eef1f6; --muted:#97a2b4; --line:#273041;
+  --accent:#7d94ff; --accent-soft:#1f2848; --ok:#3ccf8a; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:20px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-0.02em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-0.03em}
+.logo span{color:var(--accent)}
+.tabs{display:flex;gap:4px;padding:4px;background:var(--tile);border-radius:999px;border:1px solid var(--line);flex-wrap:wrap}
+.tabs button{all:unset;cursor:pointer;padding:7px 15px;border-radius:999px;font-weight:500;font-size:14px;color:var(--muted);transition:color .2s, background .2s}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tabs button:hover:not([aria-pressed="true"]){color:var(--ink)}
+.contact-btn{all:unset;cursor:pointer;font-weight:600;font-size:14px;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:var(--tile)}
+.contact-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));grid-auto-rows:minmax(240px, auto);gap:18px;grid-auto-flow:dense}
+.t{background:var(--tile);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0;
+  border:1px solid var(--line);transition:opacity .35s ease, transform .35s ease, filter .35s ease;position:relative;overflow:hidden}
+.w2{grid-column:span 2}.h2{grid-row:span 2}
+.t.dim{opacity:.18;transform:scale(.97);filter:grayscale(1)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.chip.plain{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.push{margin-top:auto}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.when{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* intro */
+.intro h1{font-size:clamp(34px,4.4vw,52px);font-weight:800;line-height:1.02}
+.intro .lede{font-size:17px;max-width:54ch}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.ghost{border:1px solid var(--line)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* monogram */
+.mono-tile{background:var(--accent);border-color:transparent;color:#fff;justify-content:space-between}
+.mono-tile .big{font-family:var(--display);font-weight:800;font-size:96px;line-height:.85;letter-spacing:-0.06em}
+.mono-tile .eyebrow{color:rgba(255,255,255,.75)}
+.status{display:flex;align-items:center;gap:8px;font-weight:500;font-size:14px}
+.dot{width:9px;height:9px;border-radius:50%;background:#7dffbc;box-shadow:0 0 0 4px rgba(125,255,188,.25);flex:none}
+@media (prefers-reduced-motion:no-preference){.dot{animation:pulse 2.4s ease-in-out infinite}}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(125,255,188,0)}}
+
+/* photo tile */
+.photo-tile{padding:0;border-color:transparent;background:var(--accent);color:#fff;min-height:240px}
+.photo-tile .photo{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+.photo-overlay{position:relative;margin-top:auto;padding:60px 22px 20px;display:flex;flex-direction:column;gap:6px;background:linear-gradient(to top, rgba(8,12,24,.82), rgba(8,12,24,0))}
+.photo-overlay .eyebrow{color:rgba(255,255,255,.75)}
+@media (max-width:600px){.photo-tile{min-height:340px}}
+
+/* map */
+.map{padding:0;gap:0}
+.map svg{width:100%;height:100%;display:block;flex:1}
+.map .cap{position:absolute;left:18px;bottom:16px;background:var(--tile);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+
+/* project / role tiles */
+.proj h2{font-size:28px;font-weight:700}
+.proj h3{font-size:22px;font-weight:700}
+.role{font-weight:600;font-size:14px;color:var(--accent)}
+.proj ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.proj li::marker{color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:10px}
+.stat{background:var(--bg);border-radius:18px;padding:14px 16px;min-width:0}
+.stat b{display:block;font-family:var(--display);font-size:32px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.bar-meter{height:8px;border-radius:999px;background:var(--bg);overflow:hidden}
+.bar-meter i{display:block;height:100%;width:50%;background:var(--accent);border-radius:inherit}
+.mh h2{font-size:clamp(30px,3.4vw,40px);font-weight:800}
+.mh ul{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:10px 22px}
+@media (max-width:600px){.mh ul{grid-template-columns:minmax(0,1fr)}}
+.gh{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
+.gh:hover{border-color:var(--accent);color:var(--accent)}
+.platforms{display:flex;gap:8px;flex-wrap:wrap}
+.platforms span{font-family:var(--mono);font-size:12px;padding:6px 10px;border-radius:10px;background:var(--bg)}
+
+/* learning path */
+.path{display:flex;flex-direction:column;gap:12px;margin:0;padding:0;list-style:none}
+.path li{display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-bottom:1px dashed var(--line);padding-bottom:10px;flex-wrap:wrap}
+.path li:last-child{border:0;padding:0}
+.tag{font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.tag.done{background:color-mix(in srgb, var(--ok) 15%, transparent);color:var(--ok)}
+.tag.prog{background:var(--accent-soft);color:var(--accent)}
+
+/* contact */
+.contact h2{font-size:30px;font-weight:800}
+.mailrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mail{font-family:var(--mono);font-size:14px;background:var(--bg);padding:8px 12px;border-radius:12px;user-select:all;overflow-wrap:anywhere;min-width:0}
+.socials{display:flex;gap:8px;flex-wrap:wrap}
+.socials a{text-decoration:none;font-weight:600;font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
+.socials a:hover{border-color:var(--accent);color:var(--accent)}
+
+.big-quote{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.2}
+.skillgroup{display:flex;flex-direction:column;gap:6px}
+footer{text-align:center;font-size:13px;color:var(--muted)}
+
+@media (max-width:980px){.grid{grid-template-columns:repeat(2, minmax(0,1fr))}}
+@media (max-width:600px){
+  .grid{grid-template-columns:minmax(0,1fr);grid-auto-rows:auto}
+  .w2,.h2{grid-column:auto;grid-row:auto}
+  .map{min-height:220px}
+  .stats{grid-template-columns:repeat(3, minmax(0,1fr))}
+  .stat b{font-size:26px}
+  .bar{justify-content:center}
+}
+</style>
+
+<div class="wrap">
+  <header class="bar">
+    <div class="logo">shahzoab<span>.</span></div>
+    <nav class="tabs" aria-label="Filter tiles">
+      <button id="f-all" data-f="all" aria-pressed="true">All</button>
+      <button id="f-about" data-f="about" aria-pressed="false">About</button>
+      <button id="f-projects" data-f="projects" aria-pressed="false">Projects</button>
+      <button id="f-experience" data-f="experience" aria-pressed="false">Experience</button>
+    </nav>
+    <button class="contact-btn" id="jump-contact">Contact</button>
+  </header>
+
+  <main class="grid" id="grid">
+
+    <!-- Intro -->
+    <section class="t w2 intro" data-cat="about">
+      <span class="eyebrow">Software Engineering · McGill University</span>
+      <h1>Shahzoab Shafi</h1>
+      <p class="lede">Software developer in Montreal. I build web and mobile products in React, Angular and TypeScript, from logistics dashboards to a delivery marketplace to the platform that ran a 150-hacker charity hackathon.</p>
+      <div class="ctas push">
+        <button class="btn primary" data-go="projects">See my work</button>
+        <button class="btn ghost" data-go="experience">Experience</button>
+        <a class="btn ghost" href="https://github.com/ShahzoabShafi" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/shahzoab-shafi/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </section>
+
+    <!-- Monogram -->
+    <section class="t photo-tile" data-cat="about">
+      <img class="photo" id="profile-photo" alt="Photo of Shahzoab Shafi" src="photo.jpeg">
+      <div class="photo-overlay">
+        <span class="eyebrow">Status</span>
+        <div class="status"><span class="dot"></span>Open to Winter &amp; Summer 2027 internships</div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="t map" data-cat="about" aria-label="Based between Montreal and Ottawa">
+      <svg viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Map sketch: Ottawa to Montreal">
+        <rect width="300" height="260" fill="var(--accent-soft)"/>
+        <g stroke="var(--line)" stroke-width="1" fill="none" opacity=".9">
+          <path d="M0 40 H300 M0 90 H300 M0 140 H300 M0 190 H300 M0 240 H300"/>
+          <path d="M40 0 V260 M100 0 V260 M160 0 V260 M220 0 V260 M280 0 V260"/>
+        </g>
+        <path d="M-10 168 C60 150 110 120 150 128 S240 110 310 72" stroke="var(--tile)" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <path d="M70 140 Q150 70 232 104" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="6 6" fill="none"/>
+        <circle cx="70" cy="140" r="7" fill="var(--ink)"/>
+        <circle cx="232" cy="104" r="10" fill="var(--accent)"/>
+        <circle cx="232" cy="104" r="18" fill="none" stroke="var(--accent)" stroke-width="2" opacity=".35"/>
+        <text x="70" y="166" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink)">Ottawa</text>
+        <text x="232" y="136" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink)">Montréal</text>
+      </svg>
+      <span class="cap">Montréal ↔ Ottawa</span>
+    </section>
+
+    <!-- MuslimHacks -->
+    <section class="t w2 proj mh" data-cat="experience projects">
+      <div class="head"><span class="eyebrow">Lead Software Developer</span><span class="when">May–Aug 2026</span></div>
+      <h2>MuslimHacks</h2>
+      <p class="muted">The full platform behind a charity hackathon partnered with Islamic Relief Canada: marketing site, applications, admin review, and day-of check-in.</p>
+      <div class="stats">
+        <div class="stat"><b>300</b><span>applications</span></div>
+        <div class="stat"><b>150</b><span>accepted</span></div>
+        <div class="stat"><b>140</b><span>checked in</span></div>
+      </div>
+      <div class="bar-meter" aria-label="Acceptance rate 50 percent"><i></i></div>
+      <ul>
+        <li>Bilingual site with a custom React i18n provider (450+ strings) and a 3D hero in React Three Fiber</li>
+        <li>Applicant dashboard on Clerk with protected user and admin routes</li>
+        <li>Admin console with search, filters, server-side pagination, bulk approve and scored reviews</li>
+        <li>QR check-in that assigned color-coded meal waves, with zero overcrowding at any meal</li>
+      </ul>
+      <div class="chips push"><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Three.js</span><span class="chip">Tailwind</span><span class="chip">shadcn</span><span class="chip">Clerk</span></div>
+    </section>
+
+    <!-- Order On Spot -->
+    <section class="t w2 proj" data-cat="experience projects">
+      <div class="head"><span class="eyebrow">Mobile Development Intern · Part-time</span><span class="when">Oct 2026 – now</span></div>
+      <h2>Order On Spot</h2>
+      <p class="muted">A local delivery marketplace with four user roles, live store maps and real-time order tracking, shipped to web, iOS and Android from one codebase.</p>
+      <ul>
+        <li>Stripe checkout wrapped in Firestore transactions, so a failed payment cancels the order and restores stock</li>
+        <li>Capacitor app with native geolocation, push notifications and Twilio voice calls</li>
+      </ul>
+      <div class="platforms"><span>Web</span><span>iOS</span><span>Android</span></div>
+      <div class="chips push"><span class="chip">React</span><span class="chip">Material UI</span><span class="chip">Firebase</span><span class="chip">Stripe</span><span class="chip">Capacitor</span><span class="chip">Leaflet</span></div>
+    </section>
+
+    <!-- HashMove -->
+    <section class="t w2 proj" data-cat="experience">
+      <div class="head"><span class="eyebrow">Frontend Software Developer</span><span class="when">Jul 2023 – Aug 2024 · May–Aug 2025</span></div>
+      <h2>HashMove</h2>
+      <p class="muted">Two terms on an enterprise logistics platform, the first in Riyadh.</p>
+      <ul>
+        <li>Frontend for an AI assistant that cut routine support queries by about 50%, with hands-free voice input</li>
+        <li>Operations centre giving one view of shipments across sea, air, truck, rail and warehouse</li>
+        <li>Reusable Angular component library built from Figma, plus embedded Power BI dashboards</li>
+        <li>Fixed 50+ QA-reported defects across both terms</li>
+      </ul>
+      <div class="chips push"><span class="chip">Angular</span><span class="chip">TypeScript</span><span class="chip">RxJS</span><span class="chip">Bootstrap</span><span class="chip">Power BI</span></div>
+    </section>
+
+    <!-- Stack -->
+    <section class="t" data-cat="about">
+      <span class="eyebrow">Stack</span>
+      <p class="big-quote">Frontend first, full-stack when it counts.</p>
+      <div class="chips push">
+        <span class="chip">React</span><span class="chip">Angular</span><span class="chip">TypeScript</span><span class="chip">Node.js</span><span class="chip">FastAPI</span><span class="chip">Firebase</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Docker</span>
+        <span class="chip plain">Java</span><span class="chip plain">C</span><span class="chip plain">C#</span><span class="chip plain">Python</span><span class="chip plain">Jest</span><span class="chip plain">pytest</span>
+      </div>
+    </section>
+
+    <!-- Internship Finder -->
+    <section class="t w2 proj" data-cat="projects">
+      <span class="eyebrow">Project · Full-stack</span>
+      <h2>Fresh Intern</h2>
+      <p class="muted">Aggregates current Canadian software internship postings from the SimplifyJobs / Pitt CSC feed, with filtering and CSV/Excel export.</p>
+      <ul>
+        <li>Two-layer caching to avoid redundant network calls</li>
+        <li>Detects the active job feed on its own, so it keeps working across hiring cycles</li>
+        <li>pytest, build and lint on every PR in GitHub Actions; deploys to Render and Vercel</li>
+      </ul>
+      <div class="chips push"><span class="chip">FastAPI</span><span class="chip">Python</span><span class="chip">React</span><span class="chip">Vite</span><span class="chip">Tailwind</span></div>
+      <a class="gh" href="https://github.com/ShahzoabShafi/Freshinternjobsearch" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </section>
+
+    <!-- McBooking -->
+    <section class="t proj" data-cat="projects">
+      <span class="eyebrow">Project · Full-stack</span>
+      <h3>McBooking</h3>
+      <p class="muted">Office-hours booking for McGill with recurring slots, double-booking prevention and email notifications. JWT auth limited to McGill emails.</p>
+      <div class="chips push"><span class="chip">React</span><span class="chip">Express</span><span class="chip">Node.js</span><span class="chip">JWT</span></div>
+      <a class="gh" href="https://github.com/ShahzoabShafi/SOCS-Booking-Application-Project" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </section>
+
+    <!-- Unity -->
+    <section class="t proj" data-cat="projects">
+      <span class="eyebrow">Game · COMP 521</span>
+      <h3>Unity FPS mini-game</h3>
+      <p class="muted">First-person game across four floating platforms, with a projectile system, a pellet-collecting bot opponent and full win/lose states.</p>
+      <div class="chips push"><span class="chip">Unity</span><span class="chip">C#</span></div>
+      <a class="gh" href="https://github.com/ShahzoabShafi/COMP521_Assignment1" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </section>
+
+    <!-- Blue Marble -->
+    <section class="t proj" data-cat="experience">
+      <div class="head"><span class="eyebrow">Wix UI/UX Developer</span></div>
+      <h3>Blue Marble Academy</h3>
+      <p class="muted">Automated a business referral program with a Partners CMS and a Velo backend that validates codes and emails the team on each sign-up.</p>
+      <span class="when push">Jan–Mar 2026</span>
+    </section>
+
+    <!-- Ibtikar -->
+    <section class="t" data-cat="experience">
+      <span class="eyebrow">Leadership</span>
+      <h3 style="font-size:22px;font-weight:700">Ibtikar McGill</h3>
+      <p class="muted">Co-founded the chapter (it began as Muslims in Tech) and serve as VP of Project Development for this student entrepreneurship club.</p>
+      <span class="chip push" style="align-self:flex-start">Co-founder · VP</span>
+    </section>
+
+    <!-- Learning path -->
+    <section class="t w2" data-cat="about">
+      <span class="eyebrow">Learning path</span>
+      <ul class="path">
+        <li><span><b>BSc Software Engineering</b> <span class="muted">· McGill University</span></span><span class="tag prog">Graduating Dec 2027</span></li>
+        <li><span><b>IBM SkillsBuild</b> <span class="muted">· Front-End Web Development</span></span><span class="tag done">Completed 2026</span></li>
+      </ul>
+      <div class="chips push">
+        <span class="chip plain">Algorithms &amp; Data Structures</span><span class="chip plain">Operating Systems</span><span class="chip plain">Software Architecture</span><span class="chip plain">Database Systems</span><span class="chip plain">Software Validation</span><span class="chip plain">Requirements Engineering</span><span class="chip plain">Theory of Computation</span><span class="chip plain">Game Development</span>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="t w2 contact" id="contact" data-cat="about">
+      <span class="eyebrow">Contact</span>
+      <h2>Let's build something.</h2>
+      <div class="mailrow">
+        <span class="mail" id="mail">shahzoabshafi03@gmail.com</span>
+        <button class="btn ghost" id="copy">Copy email</button>
+      </div>
+      <div class="socials push">
+        <a href="https://github.com/ShahzoabShafi" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/shahzoab-shafi/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </section>
+
+  </main>
+  <footer>Designed and built by Shahzoab Shafi · Montréal</footer>
+</div>
+
+<script>
+(function(){
+  const tabs=[...document.querySelectorAll('.tabs button')];
+  const tiles=[...document.querySelectorAll('.t')];
+  function apply(f){
+    tabs.forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.f===f)));
+    tiles.forEach(t=>{
+      const on = f==='all' || (t.dataset.cat||'').split(' ').includes(f);
+      t.classList.toggle('dim', !on);
+      t.setAttribute('aria-hidden', String(!on));
+    });
+  }
+  tabs.forEach(b=>b.addEventListener('click',()=>apply(b.dataset.f)));
+  document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{
+    apply(b.dataset.go);
+    const first=tiles.find(t=>t.dataset.cat.split(' ').includes(b.dataset.go));
+    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+  }));
+  document.getElementById('jump-contact').addEventListener('click',()=>{
+    apply('all'); document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  const copy=document.getElementById('copy');
+  copy.addEventListener('click',()=>{
+    const el=document.getElementById('mail');
+    const done=()=>{copy.textContent='Copied';setTimeout(()=>copy.textContent='Copy email',1600)};
+    function sel(){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);copy.textContent='Selected';}
+    try{ navigator.clipboard.writeText(el.textContent).then(done).catch(sel); }catch(e){ sel(); }
+  });
+})();
+</script>
+
+</body></html>
