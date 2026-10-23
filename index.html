@@ -348,7 +348,7 @@ footer{text-align:center;font-size:13px;color:var(--muted)}
     tiles.forEach(t=>{
       const on=match(t);
       t.classList.toggle('dim', !on);
-      t.setAttribute('aria-hidden', String(!on));
+      if(on) t.removeAttribute('aria-hidden'); else t.setAttribute('aria-hidden','true');
       if(calm.matches || !t.animate) return;
       const a=before.get(t), b=t.getBoundingClientRect();
       const dx=a.left-b.left, dy=a.top-b.top;
