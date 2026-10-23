@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a bento grid of tiles, filtered by a pill tab bar; non-matching tiles recede rather than reflow */
+/* Layout: a bento grid of tiles, filtered by a pill tab bar; matching tiles move to the top and the rest recede */
 :root{
   --bg:#e9edf3; --tile:#ffffff; --ink:#141a24; --muted:#5d6878; --line:#d6dce6;
   --accent:#2747d9; --accent-soft:#e3e8fc; --ok:#1f9d63;
@@ -335,20 +335,30 @@ footer{text-align:center;font-size:13px;color:var(--muted)}
 <script>
 (function(){
   const tabs=[...document.querySelectorAll('.tabs button')];
+  const grid=document.getElementById('grid');
   const tiles=[...document.querySelectorAll('.t')];
+  const calm=matchMedia('(prefers-reduced-motion: reduce)');
   function apply(f){
     tabs.forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.f===f)));
+    const match=t=>f==='all' || (t.dataset.cat||'').split(' ').includes(f);
+    // Matching tiles move to the top in their original order; "All" restores the original layout
+    const order=[...tiles.filter(match), ...tiles.filter(t=>!match(t))];
+    const before=new Map(tiles.map(t=>[t,t.getBoundingClientRect()]));
+    order.forEach(t=>grid.appendChild(t));
     tiles.forEach(t=>{
-      const on = f==='all' || (t.dataset.cat||'').split(' ').includes(f);
+      const on=match(t);
       t.classList.toggle('dim', !on);
       t.setAttribute('aria-hidden', String(!on));
+      if(calm.matches || !t.animate) return;
+      const a=before.get(t), b=t.getBoundingClientRect();
+      const dx=a.left-b.left, dy=a.top-b.top;
+      if(dx||dy) t.animate([{translate:`${dx}px ${dy}px`},{translate:'0 0'}],{duration:450,easing:'cubic-bezier(.2,.7,.2,1)'});
     });
   }
   tabs.forEach(b=>b.addEventListener('click',()=>apply(b.dataset.f)));
   document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{
     apply(b.dataset.go);
-    const first=tiles.find(t=>t.dataset.cat.split(' ').includes(b.dataset.go));
-    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+    grid.scrollIntoView({behavior:'smooth',block:'start'});
   }));
   document.getElementById('jump-contact').addEventListener('click',()=>{
     apply('all'); document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'center'});
